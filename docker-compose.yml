@@ -1,0 +1,61 @@
+services:
+  nginx-proxy:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+     - obeci-network
+  
+  obeci-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      NEXT_PUBLIC_API_URL: "/"
+    networks:
+      - obeci-network
+    depends_on:
+      - obeci-backend
+  
+  obeci-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      APP_CORS_ALLOWED_ORIGINS: "https://monsters-invitations-fortune-devices.trycloudflare.com"
+      OBECI_DB_URL: "jdbc:postgresql://postgres:5432/obecidb"
+      OBECI_DB_USERNAME: "obeci"
+      OBECI_DB_PASSWORD: "#Projeto10"
+      APP_JWT_SECRET: "vYk8ZQxk8G6nP1B2q0mZy0H6ZKc7QhWzR9b2XK0Kq6A="
+      #SPRING_PROFILES_ACTIVE: docker
+
+    networks:
+      - obeci-network
+    depends_on:
+      - postgres
+  
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: "obeci"
+      POSTGRES_PASSWORD: "#Projeto10"
+      POSTGRES_DB: "obecidb"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - obeci-network
+
+networks:
+  obeci-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
