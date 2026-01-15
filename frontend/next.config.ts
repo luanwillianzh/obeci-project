@@ -1,9 +1,20 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
+  output: 'standalone',
   eslint: {
     ignoreDuringBuilds: true,
   },
-  output: 'standalone',
+  devIndicators: {
+    autoPreload: false,
+  },
+  experimental: {
+    allowedDevOrigins: [
+      "localhost",
+      "127.0.0.1",
+      "26.63.103.253",
+    ],
+  },
 };
 
 export default nextConfig;

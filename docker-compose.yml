@@ -29,13 +29,12 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      APP_CORS_ALLOWED_ORIGINS: "https://obeci.the-fool.site"
+      APP_CORS_ALLOWED_ORIGINS: "http://localhost:8080"
       OBECI_DB_URL: "jdbc:postgresql://postgres:5432/obecidb"
       OBECI_DB_USERNAME: "obeci"
       OBECI_DB_PASSWORD: "#Projeto10"
       APP_JWT_SECRET: "vYk8ZQxk8G6nP1B2q0mZy0H6ZKc7QhWzR9b2XK0Kq6A="
       #SPRING_PROFILES_ACTIVE: docker
-
     networks:
       - obeci-network
     depends_on:
@@ -49,8 +48,6 @@ services:
       POSTGRES_USER: "obeci"
       POSTGRES_PASSWORD: "#Projeto10"
       POSTGRES_DB: "obecidb"
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
