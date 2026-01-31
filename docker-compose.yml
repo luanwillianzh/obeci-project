@@ -29,7 +29,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      APP_CORS_ALLOWED_ORIGINS: "http://localhost:80"
+      APP_CORS_ALLOWED_ORIGINS: "https://obeci.the-fool.site"
       OBECI_DB_URL: "jdbc:postgresql://postgres:5432/obecidb"
       OBECI_DB_USERNAME: "obeci"
       OBECI_DB_PASSWORD: "#Projeto10"
