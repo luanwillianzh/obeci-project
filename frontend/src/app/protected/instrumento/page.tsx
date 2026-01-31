@@ -77,6 +77,13 @@ function isUserVisibleChangeLog(e: InstrumentoChangeLogDto): boolean {
 }
 
 function buildWsUrlFromApiBase(apiBase: string): string {
+  // Se a URL base for relativa ("/"), construa a URL completa a partir da window.location
+  if (apiBase === "/") {
+    const protocol = typeof window !== 'undefined' && window.location?.protocol === "https:" ? "wss:" : "ws:";
+    const host = typeof window !== 'undefined' ? window.location?.host : 'localhost:3000';
+    return `${protocol}//${host}/ws`;
+  }
+
   const u = new URL(apiBase);
   const protocol = u.protocol === "https:" ? "wss:" : "ws:";
   return `${protocol}//${u.host}/ws`;

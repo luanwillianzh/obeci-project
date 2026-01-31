@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      NEXT_PUBLIC_API_URL: "/"
+      NEXT_PUBLIC_API_URL: "http://nginx-proxy:80"
     networks:
       - obeci-network
     depends_on:
