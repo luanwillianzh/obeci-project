@@ -77,9 +77,18 @@ function isUserVisibleChangeLog(e: InstrumentoChangeLogDto): boolean {
 }
 
 function buildWsUrlFromApiBase(apiBase: string): string {
-  const u = new URL(apiBase);
-  const protocol = u.protocol === "https:" ? "wss:" : "ws:";
-  return `${protocol}//${u.host}/ws`;
+  // Handle relative URLs by combining with current window location
+  let fullUrl: URL;
+  try {
+    fullUrl = new URL(apiBase, window.location.origin);
+  } catch {
+    // If apiBase is still invalid, default to current origin
+    fullUrl = new URL("/ws", window.location.origin);
+    return fullUrl.toString().replace(/^https?:/, (window.location.protocol === "https:" ? "wss:" : "ws:"));
+  }
+
+  const protocol = fullUrl.protocol === "https:" ? "wss:" : "ws:";
+  return `${protocol}//${fullUrl.host}${fullUrl.pathname}/ws`;
 }
 
 function getClientId(): string {
