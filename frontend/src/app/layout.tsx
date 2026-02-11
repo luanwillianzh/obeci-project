@@ -13,6 +13,7 @@
  */
 
 import type { Metadata } from "next";
+import { Nunito } from "next/font/google";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/contexts/AuthProvider";
@@ -27,6 +28,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const nunito = Nunito({ subsets: ['latin'], display: 'swap', adjustFontFallback: false})
 export const metadata: Metadata = {
   title: "Obeci",
   description: "OBECI Frontend",

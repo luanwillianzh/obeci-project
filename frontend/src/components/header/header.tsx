@@ -54,7 +54,7 @@ export default function Header({ logout }: HeaderProps) {
       className={`header-obeci ${isLogin ? "login" : ""} ${menuOpen ? "open" : ""}`}
     >
       <div className="container-imagem-obeci">
-        <img src="/logo-obeci.png" alt="Logo do projeto OBECI" />
+        <img src="/logo-obeci.webp" alt="Logo do projeto OBECI" fetchPriority="high"/>
       </div>
 
       {/* Se não for login, exibe o conteúdo do header */}
@@ -88,7 +88,7 @@ export default function Header({ logout }: HeaderProps) {
 
             <div className="icon-group">
               <div className="bloco-logout">
-                <Link href={DADOS_PATH}>
+                <Link href={DADOS_PATH} aria-label="Usuário">
                   <User size={28} />
                 </Link>
               </div>
